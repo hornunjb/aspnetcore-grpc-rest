@@ -4,7 +4,7 @@ This documents outlines how to get started with a hybrid REST and gRPC service u
 
 ## Motivation
 
-While looking at migrating existing APIs from REST to gRPC, I struggled to find a working C# example, where I could run a hybrid between the two. I did not want to convert the service strictly to gRPC and throw away the existing REST implmentation, since a lot legacy services may still depend on it. Instead I wondered if it would be possible add the gRPC component on top on an existing REST service and expose separate ports to run HTTP/1.x and HTTP/2 connections. For such a relatively simple idea, I had hoped there would be a various documentation for how to achieve this. But after a bit of researching, I decided to create my own example.
+While looking at migrating existing APIs from REST to gRPC, I struggled to find a working C# example, where I could run a hybrid between the two. I did not want to convert the existing service strictly to gRPC and throw away the REST implementation since legacy services may still depend on it. Instead I wondered if it would be possible add the gRPC component on top of an existing REST service and expose separate ports to run HTTP/1.x and HTTP/2 connections. For a relatively simple idea, I had hoped there would be a various documentation for how to achieve this. But after a bit of researching, I decided to create my own example.
 
 ## Build and run the sample with Docker
 
