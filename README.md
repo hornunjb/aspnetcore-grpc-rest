@@ -30,14 +30,6 @@ You can build and run the sample locally with [minikube](https://kubernetes.io/d
 Build your image:
 ```console
 docker build -t aspnetapp-k8s .
-kubectl create -f service.yaml
-kubectl create -f deployment.yaml
-minikube service aspneta---k8s --url
-```
-
-You’ll get an output like this:
-```console
-docker build -t aspnetapp-k8s .
 cd aspnetapp
 kubectl create -f service.yaml
 kubectl create -f deployment.yaml
