@@ -1,10 +1,10 @@
 # Hybrid REST and gRPC service with ASP.NET Core 3.0
 
-This documents outlines how to get started with a hybrid REST and gRPC service using ASP.NET Core 3.0. 
+This document outlines how to get started with a hybrid REST and gRPC service using ASP.NET Core 3.0. 
 
 ## Motivation
 
-While looking at migrating existing APIs from REST to gRPC, I struggled to find a working C# example, where I could run a hybrid between the two. I did not want to convert the existing service strictly to gRPC and throw away the REST implementation since legacy services may still depend on it. Instead I wondered if it would be possible add the gRPC component on top of an existing REST service and expose separate ports to run HTTP/1.x and HTTP/2 connections. For a relatively simple idea, I had hoped there would be a various documentation for how to achieve this, but after a bit of researching, I decided to create my own example.
+While looking at migrating existing APIs from REST to gRPC, I struggled to find a working C# example, where I could run a hybrid between the two. I did not want to convert an existing service strictly to gRPC and throw away the REST implementation since legacy services may still depend on it. Instead I wondered if it would be possible to add the gRPC component on top of an existing REST service and expose separate ports to run HTTP/1.x and HTTP/2 connections. For a relatively simple idea, I had hoped there would be various documentation for how to achieve this, but after a bit of researching, I decided to create my own example.
 
 ## Build and run the sample with Docker
 
@@ -15,19 +15,17 @@ docker build- t aspnetapp-k8s .
 docker run -it --rm -p 9000:4999 -p 9001:5000 --name aspnetcore-sample aspnetapp-k8s
 ```
 
-You should see the following console output as the application starts.
-
 After the application starts, navigate to `http://localhost:9000/swagger` in your web browser.
 
 > Note: The run command `-p` argument maps ports 9000 and 9001 on the local machine to ports 4999 and 5000 in the container (the form of the port mapping is `host:container`).
 
 ## Build and run the sample with Minikube
 
-If you want to run k8s locally you can spin up a whole cluster manually. Another solution is to use [minikube](https://kubernetes.io/docs/setup/minikube/). 
+If you want to run Kubernetes locally, you can spin up a whole cluster manually. Another solution is to use [minikube](https://kubernetes.io/docs/setup/minikube/). 
 
-You can build and run the sample locally with [minikube](https://kubernetes.io/docs/setup/minikube/). This post won't show you how to install [minikube](https://kubernetes.io/docs/setup/minikube/) or the command line tool [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
+You can build and run the sample locally with [minikube](https://kubernetes.io/docs/setup/minikube/). This document won't show you how to install [minikube](https://kubernetes.io/docs/setup/minikube/) or the command line tool [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
 
-If this is your first time setting up `minikube`, the Docker daemon in `minikube` will not initally know about the Docker daemon in your host. You can share the context by running the following commmands:
+If this is your first time setting up `minikube`, the Docker daemon in `minikube` may not initally know about the Docker daemon in your host. You can share the context by running the following commmands:
 ```console
 > minikube docker-env
 SET DOCKER_TLS_VERIFY=1
@@ -37,7 +35,7 @@ REM Run this command to configure your shell:
 REM @FOR /f "tokens=*" %i IN ('minikube docker-env') DO @%i
 ```
 
-`minikube` also provides a port range between 30000–32767 for services, so when a new service gets created a random port gets choosen. You can specify the nodePort range by running a similar command like this:
+`minikube` also provides a port range between 30000â€“32767 for services, so when a new service gets created a random port gets choosen. You can specify the nodePort range by running a similar command like this one below:
 ```console
 minikube start --extra-config=apiserver.service-node-port-range=80-30000
 ```
@@ -56,7 +54,7 @@ kubectl create -f service.yaml
 kubectl create -f deployment.yaml
 ```
 
-> Note: To delete a service and deployment, run the following commands: `kubectl delete service aspnetapp-k8s` and `kubectl delete deployment aspnetapp-k8s`.
+> Note: To delete a service and deployment, you can run the following commands: `kubectl delete service aspnetapp-k8s` and `kubectl delete deployment aspnetapp-k8s`.
 
 Now check if the deployment succeeded:
 ```console
