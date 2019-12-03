@@ -11,7 +11,7 @@ While looking at migrating existing APIs from REST to gRPC, I struggled to find 
 You can build and run the sample in Docker using the following commands. Navigate to the folder where the Dockerfile lies.
 
 ```console
-docker build- t aspnetapp-k8s .
+docker build -t aspnetapp-k8s .
 docker run -it --rm -p 9000:4999 -p 9001:5000 --name aspnetcore-sample aspnetapp-k8s
 ```
 
