@@ -21,9 +21,9 @@ After the application starts, navigate to `http://localhost:9000/swagger` in you
 
 ## Build and run the sample with Minikube
 
-If you want to run Kubernetes locally, you can spin up a whole cluster manually. Another solution is to use [minikube](https://kubernetes.io/docs/setup/minikube/). 
+If you want to run Kubernetes locally, you can spin up a whole cluster manually. Another solution is to use [minikube](https://kubernetes.io/docs/setup/minikube/){:target="_blank"}. 
 
-You can build and run the sample locally with [minikube](https://kubernetes.io/docs/setup/minikube/). This document won't show you how to install [minikube](https://kubernetes.io/docs/setup/minikube/) or the command line tool [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
+You can build and run the sample locally with [minikube](https://kubernetes.io/docs/setup/minikube/){:target="_blank"}. This document won't show you how to install [minikube](https://kubernetes.io/docs/setup/minikube/) or the command line tool [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/){:target="_blank"}.
 
 If this is your first time setting up `minikube`, the Docker daemon in `minikube` may not initally know about the Docker daemon in your host. You can share the context by running the following commmands:
 ```console
@@ -79,4 +79,4 @@ http://192.168.99.100:5000
 
 Navigate to `http://192.168.99.100:4999/swagger` in your web browser to test the REST component.
 
-For the gRPC piece, you can use a gRPC client (i.e. [BloomRPC](https://github.com/uw-labs/bloomrpc)) to connect to `http://192.168.99.100:5000`.
+For the gRPC piece, you can use a gRPC client (i.e. [BloomRPC](https://github.com/uw-labs/bloomrpc){:target="_blank"}) to connect to `http://192.168.99.100:5000`.
