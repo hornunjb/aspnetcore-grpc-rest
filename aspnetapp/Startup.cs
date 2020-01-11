@@ -32,7 +32,7 @@ namespace aspnetapp
                 {
                     Version = "v1",
                     Title = "Sample API",
-                    Description = "A simple example of a hybrid REST and gRPC service using ASP.NET Core 3.0",
+                    Description = "A simple example of a hybrid REST and gRPC service using ASP.NET Core 3.1",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {

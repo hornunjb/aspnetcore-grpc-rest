@@ -1,6 +1,6 @@
-# Hybrid REST and gRPC service with ASP.NET Core 3.0
+# Hybrid REST and gRPC service with ASP.NET Core 3.1
 
-This document outlines how to get started with a hybrid REST and gRPC service using ASP.NET Core 3.0. 
+This document outlines how to get started with a hybrid REST and gRPC service using ASP.NET Core 3.1. 
 
 ## Motivation
 
@@ -30,7 +30,7 @@ If this is your first time setting up `minikube`, the Docker daemon in `minikube
 > minikube docker-env
 SET DOCKER_TLS_VERIFY=1
 SET DOCKER_HOST=tcp://172.17.13.216:2376
-SET DOCKER_CERT_PATH=C:\Users\T-X\.minikube\certs
+SET DOCKER_CERT_PATH=C:\Users\[USERNAME]\.minikube\certs
 REM Run this command to configure your shell:
 REM @FOR /f "tokens=*" %i IN ('minikube docker-env') DO @%i
 ```
