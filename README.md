@@ -1,4 +1,4 @@
-# Hybrid REST and gRPC service with ASP.NET Core 3.1
+# Hybrid RESTful and gRPC service with ASP.NET Core 3.1
 
 This document outlines how to get started with a hybrid REST and gRPC service using ASP.NET Core 3.1. 
 
@@ -11,8 +11,8 @@ While looking at migrating existing APIs from REST to gRPC, I struggled to find 
 You can build and run the sample in Docker using the following commands. Navigate to the folder where the Dockerfile lies.
 
 ```console
-docker build -t aspnetapp-k8s .
-docker run -it --rm -p 9000:4999 -p 9001:5000 --name aspnetcore-sample aspnetapp-k8s
+$  docker build -t aspnetapp-k8s .
+$  docker run -it --rm -p 9000:4999 -p 9001:5000 --name aspnetcore-sample aspnetapp-k8s
 ```
 
 After the application starts, navigate to `http://localhost:9000/swagger` in your web browser.
@@ -27,48 +27,48 @@ You can build and run the sample locally with [minikube](https://kubernetes.io/d
 
 If this is your first time setting up `minikube`, the Docker daemon in `minikube` may not initally know about the Docker daemon in your host. You can share the context by running the following commmands:
 ```console
-> minikube docker-env
-SET DOCKER_TLS_VERIFY=1
-SET DOCKER_HOST=tcp://172.17.13.216:2376
-SET DOCKER_CERT_PATH=C:\Users\[USERNAME]\.minikube\certs
-REM Run this command to configure your shell:
-REM @FOR /f "tokens=*" %i IN ('minikube docker-env') DO @%i
+$  minikube docker-env
+$  SET DOCKER_TLS_VERIFY=1
+$  SET DOCKER_HOST=tcp://172.17.13.216:2376
+$  SET DOCKER_CERT_PATH=C:\Users\[USERNAME]\.minikube\certs
+$  REM Run this command to configure your shell:
+$  REM @FOR /f "tokens=*" %i IN ('minikube docker-env') DO @%i
 ```
 
 `minikube` also provides a port range between 30000–32767 for services, so when a new service gets created a random port gets choosen. You can specify the nodePort range by running a similar command like this one below:
 ```console
-minikube start --extra-config=apiserver.service-node-port-range=80-30000
+$  minikube start --extra-config=apiserver.service-node-port-range=80-30000
 ```
 
 > Note: To stop the local `minikube` cluster, run the command: `minikube stop`
 
 Next, build the docker image:
 ```console
-docker build -t aspnetapp-k8s .
+$  docker build -t aspnetapp-k8s .
 ```
 
 Create a service and a deployment:
 ```console
-cd aspnetapp
-kubectl create -f service.yaml
-kubectl create -f deployment.yaml
+$  cd aspnetapp
+$  kubectl create -f service.yaml
+$  kubectl create -f deployment.yaml
 ```
 
 > Note: To delete a service and deployment, you can run the following commands: `kubectl delete service aspnetapp-k8s` and `kubectl delete deployment aspnetapp-k8s`.
 
 Now check if the deployment succeeded:
 ```console
-kubectl get deployments
+$  kubectl get deployments
 ```
 
 You can also check the statuses of your pods:
 ```console
-kubectl get pods
+$  kubectl get pods
 ```
 
 To find out which IP and ports have been exposed, use this command (this is different when using managed k8s):
 ```console
-minikube service aspnetapp-k8s --url
+$  minikube service aspnetapp-k8s --url
 ```
 
 You'll get an output similar to this:
@@ -79,4 +79,4 @@ http://192.168.99.100:5000
 
 Navigate to `http://192.168.99.100:4999/swagger` in your web browser to test the REST component.
 
-For the gRPC piece, you can use a gRPC client (i.e. [BloomRPC](https://github.com/uw-labs/bloomrpc) to connect to `http://192.168.99.100:5000`.
+For the gRPC piece, you can use a gRPC client (i.e. [BloomRPC](https://github.com/uw-labs/bloomrpc) to connect to `http://192.168.99.100:5000`).
