@@ -25,6 +25,28 @@ namespace aspnetapp
         {
             services.AddControllers();
 
+            //Add API versioning to application
+            services.AddApiVersioning(
+                options =>
+                {
+                    //Reporting api versions will return the headers "api-supported-versions" and "api-deprecated-versions"
+                    options.ReportApiVersions = true;
+
+                    options.AssumeDefaultVersionWhenUnspecified = true;
+                });
+
+            services.AddVersionedApiExplorer(
+                options =>
+                {
+                    //Add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
+                    //NOTE: the specified format code will format the version as "'v'major[.minor][-status]"
+                    options.GroupNameFormat = "'v'VVV";
+
+                    //NOTE: this option is only necessary when versioning by url segment. the SubstitutionFormat
+                    //can also be used to control the format of the API version in route templates
+                    options.SubstituteApiVersionInUrl = true;
+                });
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -32,7 +54,7 @@ namespace aspnetapp
                 {
                     Version = "v1",
                     Title = "Sample API",
-                    Description = "A simple example of a hybrid REST and gRPC service using ASP.NET Core 3.1",
+                    Description = "A simple example of a hybrid REST and gRPC service using ASP.NET Core 5.0",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
@@ -46,10 +68,12 @@ namespace aspnetapp
                     }
                 });
 
+                 c.DescribeAllParametersInCamelCase();
+
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(xmlPath);
             });
 
             services.AddGrpc();

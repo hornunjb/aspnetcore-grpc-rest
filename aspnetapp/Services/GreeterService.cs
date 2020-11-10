@@ -4,12 +4,20 @@ using GrpcGreeter;
 
 namespace aspnetapp.Services
 {
+    /// <summary>
+    /// Greeting Service
+    /// </summary>
     public class GreeterService : Greeter.GreeterBase
     {
-        public override Task<HelloReply> SayHello(
-            HelloRequest request, ServerCallContext context)
+        /// <summary>
+        /// A method that takes in a request name and responds with a hello message
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public override async Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
-            return Task.FromResult(new HelloReply
+            return await Task.FromResult(new HelloReply
             {
                 Message = "Hello " + request.Name
             });
