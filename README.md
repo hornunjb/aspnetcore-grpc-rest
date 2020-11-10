@@ -1,4 +1,4 @@
-# Hybrid RESTful and gRPC service with ASP.NET Core 5.0
+# Hybrid RESTful and gRPC service using ASP.NET Core 5.0
 
 This document outlines how to get started with a hybrid REST and gRPC service using ASP.NET Core 5.0.
 
@@ -6,7 +6,7 @@ This document outlines how to get started with a hybrid REST and gRPC service us
 
 While looking at migrating existing APIs from REST to gRPC, I struggled to find a working C# example, where I could run a hybrid between the two. I did not want to convert an existing service strictly to gRPC and throw away the REST implementation since legacy services may still depend on it. Instead I wondered if it would be possible to add the gRPC component on top of an existing REST service and expose separate ports to run HTTP/1.x and HTTP/2 connections. For a relatively simple idea, I had hoped there would be various documentation for how to achieve this, but after a bit of researching, I decided to create my own example.
 
-## Build and Run the Sample
+## Build and run the sample
 
 You can import the code straight into your preferred IDE (i.e. Visual Studio) or run the sample using the following commands (in the root project folder).
 
@@ -101,4 +101,4 @@ http://192.168.99.100:5000
 
 Navigate to `http://192.168.99.100:4999/swagger` in your web browser to test the REST component.
 
-And again for the gRPC piece, you can use a gRPC client (i.e. [BloomRPC](https://github.com/uw-labs/bloomrpc) to connect to `http://192.168.99.100:5000`).
+And again for the gRPC piece, you can use a gRPC client (i.e. [BloomRPC](https://github.com/uw-labs/bloomrpc)) to connect to `http://192.168.99.100:5000`.
