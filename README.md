@@ -8,15 +8,14 @@ While looking at migrating existing APIs from REST to gRPC, I struggled to find 
 
 ## Build and run the sample
 
-You can import the code straight into your preferred IDE (i.e. Visual Studio) or run the sample using the following commands (in the root project folder).
+You can import the code straight into your preferred IDE (i.e. Visual Studio) or run the sample using the `dotnet` CLI commands (in the root project folder).
 
 ```pwsh
->  dotnet restore
 >  dotnet build
 >  dotnet .\aspnetapp\bin\Debug\net5.0\aspnetapp.dll
 ```
 
-After the application runs, navigate to http://localhost:4999/swagger/index.html in your web browser to access the Swagger UI. Enter a value in the name field and it should return something similar like this below:
+After the application runs, navigate to http://localhost:4999/swagger in your web browser to access the Swagger UI. Enter a value in the name field and it should return something similar like this below:
 
 ```json
 {
@@ -37,7 +36,7 @@ You can build and run the sample in Docker using the following commands. Navigat
 >  docker run -it --rm -p 9000:4999 -p 9001:5000 --name aspnetcore-sample aspnetapp-k8s
 ```
 
-After the application starts, navigate to `http://localhost:9000/swagger` in your web browser.
+After the application starts, navigate to http://localhost:9000/swagger in your web browser.
 
 > Note: The run command `-p` argument maps ports 9000 and 9001 on the local machine to ports 4999 and 5000 in the container (the form of the port mapping is `host:container`).
 

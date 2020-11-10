@@ -54,7 +54,7 @@ namespace aspnetapp
                 {
                     Version = "v1",
                     Title = "Sample API",
-                    Description = "A simple example of a hybrid REST and gRPC service using ASP.NET Core 5.0",
+                    Description = "A simple hybrid REST and gRPC service using ASP.NET Core 5.0",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {

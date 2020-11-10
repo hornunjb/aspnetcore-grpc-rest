@@ -9,6 +9,10 @@
     <DocumentationFile>bin\$(Configuration)\aspnetapp.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>obj\Release\net5.0\aspnetapp.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
   </ItemGroup>
