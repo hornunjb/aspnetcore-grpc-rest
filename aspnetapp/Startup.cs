@@ -11,16 +11,28 @@ using Microsoft.OpenApi.Models;
 
 namespace aspnetapp
 {
+    /// <summary>
+    /// Startup class
+    /// </summary>
     public class Startup
     {
+        private IConfiguration configuration { get; }
+
+        /// <summary>
+        /// Constructor injection
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -55,16 +67,15 @@ namespace aspnetapp
                     Version = "v1",
                     Title = "Sample API",
                     Description = "A simple hybrid REST and gRPC service using ASP.NET Core 5.0",
-                    TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
                         Name = "Ben Chen",
-                        Url = new Uri("https://www.linkedin.com/in/bchen04/"),
+                        Url = new Uri("https://www.linkedin.com/in/bchen04/")
                     },
                     License = new OpenApiLicense
                     {
-                        Name = "Use under LICX",
-                        Url = new Uri("https://example.com/license"),
+                        Name = "MIT License",
+                        Url = new Uri("https://github.com/bchen04/aspnetcore-grpc-rest/blob/master/LICENSE")
                     }
                 });
 
@@ -79,7 +90,12 @@ namespace aspnetapp
             services.AddGrpc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
+        /// <returns></returns>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
