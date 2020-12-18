@@ -26,21 +26,14 @@ namespace aspnetapp
         /// <returns></returns>
         private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.ConfigureKestrel(options =>
-                        {
-                            options.ListenAnyIP(4999, listenOptions =>
-                            {
-                                listenOptions.Protocols = HttpProtocols.Http1;
-                            });
+                .ConfigureWebHostDefaults(webBuilder => webBuilder.ConfigureKestrel(options =>
+                    {
+                        options.ListenAnyIP(4999, listenOptions => 
+                            listenOptions.Protocols = HttpProtocols.Http1);
 
-                            options.ListenAnyIP(5000, listenOptions =>
-                            {
-                                listenOptions.Protocols = HttpProtocols.Http2;
-                            });
-                        })
-                        .UseStartup<Startup>();
-                });
+                        options.ListenAnyIP(5000, listenOptions => 
+                            listenOptions.Protocols = HttpProtocols.Http2);
+                    })
+                    .UseStartup<Startup>());
     }
 }
