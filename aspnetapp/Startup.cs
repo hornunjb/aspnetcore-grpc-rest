@@ -80,7 +80,7 @@ namespace aspnetapp
                     }
                 });
 
-                 c.DescribeAllParametersInCamelCase();
+                c.DescribeAllParametersInCamelCase();
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

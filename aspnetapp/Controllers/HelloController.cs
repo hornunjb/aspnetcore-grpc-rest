@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
+using aspnetapp.Services;
+using Greet.V1;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using aspnetapp.Services;
-using Greet.V1;
 
 namespace aspnetapp.Controllers
 {
