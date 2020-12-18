@@ -1,31 +1,31 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using aspnetapp.Services;
-using GrpcGreeter;
-using Microsoft.AspNetCore.Http;
+using Greet.V1;
 
 namespace aspnetapp.Controllers
 {
     /// <summary>
-    /// Home controller
+    /// Hello controller
     /// </summary>
     [ApiVersion("1.0")]
     [ApiController]
     [Route("v{version:apiVersion}/[controller]")]
     [Produces("application/json")]
-    public class HomeController : Controller
+    public class HelloController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly GreeterService _service;
+        private readonly ILogger<HelloController> _logger;
+        private readonly IGreeterService _service;
         
         /// <summary>
-        /// Home constructor
+        /// Hello constructor
         /// </summary>
-        public HomeController(ILogger<HomeController> logger)
+        public HelloController(ILogger<HelloController> logger, IGreeterService service)
         {
             _logger = logger;
-            _service = new GreeterService();
+            _service = service;
         }
 
         /// <summary>
@@ -34,19 +34,20 @@ namespace aspnetapp.Controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET /{name}
+        ///     GET /hello/{name}
         ///
         /// </remarks>
         /// <param name="name"></param>
         [HttpGet("{name}", Name = "SayHello")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(HelloReply))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> SayHello(string name)
         {
             if (string.IsNullOrEmpty(name))
                 return BadRequest();
-
+            
+            // Forward the call to the greeter service
             var response = await _service.SayHello(new HelloRequest {Name = name}, null);
             return Ok(response);
         }

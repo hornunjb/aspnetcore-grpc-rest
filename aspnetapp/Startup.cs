@@ -33,8 +33,9 @@ namespace aspnetapp
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public void ConfigureServices(IServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services)
         {
+            services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllers();
 
             //Add API versioning to application
@@ -88,6 +89,9 @@ namespace aspnetapp
             });
 
             services.AddGrpc();
+            
+            // Registers the service with a scoped lifetime
+            services.AddScoped<IGreeterService, GreeterService>();
         }
 
         /// <summary>
@@ -96,7 +100,7 @@ namespace aspnetapp
         /// <param name="app"></param>
         /// <param name="env"></param>
         /// <returns></returns>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

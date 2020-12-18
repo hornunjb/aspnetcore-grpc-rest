@@ -15,6 +15,9 @@ artifacts/
 # Visual Studio Code cache/options directory
 .vscode/
 
+# Rider directory
+.idea/
+
 # Test files
 *.trx
 

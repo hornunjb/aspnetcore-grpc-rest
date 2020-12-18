@@ -15,8 +15,8 @@ namespace aspnetapp
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        private static Task Main(string[] args) =>
-            CreateHostBuilder(args).Build().RunAsync();
+        private static async Task Main(string[] args) =>
+            await CreateHostBuilder(args).Build().RunAsync();
 
 
         /// <summary>
