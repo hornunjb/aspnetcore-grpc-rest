@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using aspnetapp.Entities;
 using aspnetapp.Services;
 using Greet.V1;
 using Microsoft.AspNetCore.Http;
@@ -38,11 +40,11 @@ namespace aspnetapp.Controllers
         ///
         /// </remarks>
         /// <param name="name"></param>
-        [HttpGet("{name}", Name = "SayHello")]
+        [HttpGet("message/{name}", Name = "SayHello")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(HelloReply))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> SayHello(string name)
+        public async Task<IActionResult> SayHello([FromRoute] string name)
         {
             if (string.IsNullOrEmpty(name))
                 return BadRequest();
@@ -50,6 +52,32 @@ namespace aspnetapp.Controllers
             // Forward the call to the greeter service
             var response = await _service.SayHello(new HelloRequest {Name = name}, null);
             return Ok(response);
+        }
+
+        [HttpPost("books", Name = "SayHelloPost")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(HelloReply))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> PostName([FromBody] BookDTO book)
+        {
+            if (book == null)
+                return BadRequest();
+
+          
+            return Ok(book);
+        }
+
+        [HttpPost("bookslist", Name = "BooksListPost")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(HelloReply))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> PostBooks([FromBody] BookListDTO books)
+        {
+            if (books == null)
+                return BadRequest();
+
+           
+            return Ok(books.books.Count());
         }
     }
 }
