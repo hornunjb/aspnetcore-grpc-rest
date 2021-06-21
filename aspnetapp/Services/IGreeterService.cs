@@ -16,5 +16,7 @@ namespace aspnetapp.Services
         /// <param name="context"></param>
         /// <returns></returns>
         Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context);
+        Task<BookDTOReply> BookCollection(BookDTORequest request, ServerCallContext context);
+
     }
 }

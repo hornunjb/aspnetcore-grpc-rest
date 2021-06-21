@@ -58,7 +58,7 @@ namespace aspnetapp.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(HelloReply))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PostName([FromBody] BookDTO book)
+        public async Task<IActionResult> PostName([FromBody] Entities.BookDTO book)
         {
             if (book == null)
                 return BadRequest();
@@ -71,7 +71,7 @@ namespace aspnetapp.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(HelloReply))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PostBooks([FromBody] BookListDTO books)
+        public async Task<IActionResult> PostBooks([FromBody] Entities.BookListDTO books)
         {
             if (books == null)
                 return BadRequest();
