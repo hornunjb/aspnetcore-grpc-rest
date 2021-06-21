@@ -6,27 +6,25 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace TestRunner
+namespace TestRunner2
 {
     class Program
     {
-        const string httpEndpoint = @"http://localhost:4999";
         const string grpcEndpoint = @"http://localhost:5000";
+        const string httpEndpoint = @"http://localhost:4999";
 
         public class BookListDTO
         {
             public List<BookDTO> books { get; set; }
 
         }
-
-        static void Main(string[] args) 
+        static async Task Main(string[] args)
         {
-            callHttpEndpoint();
-            callGrpcEndpointAsync();
-            Console.ReadLine();
+            await callGrpcEndpointAsync();
+            await callHttpEndpointAsync();
         }
 
-        static void callHttpEndpoint()
+        static async Task callHttpEndpointAsync()
         {
             using (var client = new HttpClient())
             {
@@ -34,28 +32,19 @@ namespace TestRunner
 
                 client.BaseAddress = new Uri(httpEndpoint);
 
-                var bookResponse = client.PostAsJsonAsync("/v1/hello/books", book).Result;
-                if (bookResponse.IsSuccessStatusCode)
-                {
-                    Console.Write("Success");
-                }
-                else
-                {
-                    Console.Write("Error");
-                }
-
                 List<BookDTO> booksList = new List<BookDTO>
                 {
                     book,
                     book,
                     book
                 };
+
                 BookListDTO books = new BookListDTO { books = booksList };
 
-                var bookListResponse = client.PostAsJsonAsync("/v1/hello/bookslist", books).Result;
+                var bookListResponse = await client.PostAsJsonAsync("/v1/hello/bookslist", books);
                 if (bookListResponse.IsSuccessStatusCode)
                 {
-                    Console.Write("Success");
+                    string returnValue = await bookListResponse.Content.ReadAsStringAsync();
                 }
                 else
                 {
@@ -64,7 +53,6 @@ namespace TestRunner
             }
         }
 
-        // TODO: gRPC call
         static async Task callGrpcEndpointAsync()
         {
             var input = new BookDTORequest();
@@ -75,8 +63,10 @@ namespace TestRunner
 
             var reply = await client.BookCollectionAsync(input);
 
-            Console.WriteLine(reply.Total);
+            if (reply.Total != 2)
+            {
+                throw new ApplicationException();
+            }
         }
-
     }
 }
