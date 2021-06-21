@@ -5,6 +5,7 @@ package greet.v1;
 service Greeter {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc BookCollection (BookDTORequest) returns (BookDTOReply);
 }
 
 // The request message containing the user's name.
@@ -15,4 +16,17 @@ message HelloRequest {
 // The response message containing the greetings.
 message HelloReply {
   string message = 1;
+}
+
+message BookDTO {
+    string title = 1;
+    string author = 2;
+}
+
+message BookDTORequest {
+    repeated BookDTO bookDTO = 1;
+}
+
+message BookDTOReply {
+    int32 total = 1;
 }

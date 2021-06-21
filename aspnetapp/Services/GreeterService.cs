@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Greet.V1;
 using Grpc.Core;
 
@@ -20,6 +21,14 @@ namespace aspnetapp.Services
             return await Task.FromResult(new HelloReply
             {
                 Message = $"Hello {request.Name}"
+            });
+        }
+
+        public override async Task<BookDTOReply> BookCollection(BookDTORequest request, ServerCallContext context)
+        {
+            return await Task.FromResult(new BookDTOReply
+            {
+                Total = request.BookDTO.Count()
             });
         }
     }
