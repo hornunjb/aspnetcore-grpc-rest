@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+
 
 namespace TestRunner
 {
@@ -23,41 +20,51 @@ namespace TestRunner
         public class BookListDTO
         {
             public List<BookDTO> books { get; set; }
-
         }
 
         static void Main(string[] args)
         {
-            // HTTP call
-            using (var client = new HttpClient())
-            {
-                BookDTO book = new BookDTO { title = "hello", author = "jacob"};
-                client.BaseAddress = new Uri(httpEndpoint);
-                var response = client.PostAsJsonAsync("/v1/hello/books", book).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    Console.Write("Success");
-                }
-                else
-                    Console.Write("Error");
-            }
+            callHttpEndpoint();
+        }
 
+        static void callHttpEndpoint()
+        {
             using (var client = new HttpClient())
             {
-                BookListDTO bookList = new BookListDTO();
+                BookDTO book = new BookDTO { title = "Hello", author = "Jacob" };
+
                 client.BaseAddress = new Uri(httpEndpoint);
-                var response = client.PostAsJsonAsync("/v1/hello/bookList", bookList).Result;
-                if (response.IsSuccessStatusCode)
+
+                var bookResponse = client.PostAsJsonAsync("/v1/hello/books", book).Result;
+                if (bookResponse.IsSuccessStatusCode)
                 {
                     Console.Write("Success");
                 }
                 else
+                {
                     Console.Write("Error");
+                }
+
+                List<BookDTO> booksList = new List<BookDTO>();
+                booksList.Add(book);
+                booksList.Add(book);
+                booksList.Add(book);
+                BookListDTO books = new BookListDTO { books = booksList };
+
+                var bookListResponse = client.PostAsJsonAsync("/v1/hello/bookslist", books).Result;
+                if (bookListResponse.IsSuccessStatusCode)
+                {
+                    Console.Write("Success");
+                }
+                else
+                {
+                    Console.Write("Error");
+                }
             }
         }
 
         // TODO: gRPC call
-        static void callGrpcEndpoint(string endpointAddress)
+        static void callGrpcEndpoint()
         {
 
         }
