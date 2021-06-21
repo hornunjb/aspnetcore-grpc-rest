@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Greet.V1;
+using Grpc.Net.Client;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
-
+using System.Threading.Tasks;
 
 namespace TestRunner
 {
     class Program
     {
         const string httpEndpoint = @"http://localhost:4999";
-        const string grpc = @"http://localhost:5000";
+        const string grpcEndpoint = @"http://localhost:5000";
 
         public class BookDTO
         {
@@ -25,6 +27,8 @@ namespace TestRunner
         static void Main(string[] args)
         {
             callHttpEndpoint();
+            callGrpcEndpointAsync();
+            Console.ReadLine();
         }
 
         static void callHttpEndpoint()
@@ -64,9 +68,15 @@ namespace TestRunner
         }
 
         // TODO: gRPC call
-        static void callGrpcEndpoint()
+        static async Task callGrpcEndpointAsync()
         {
+            var input = new HelloRequest { Name = "Jacob" };
+            var channel = GrpcChannel.ForAddress(grpcEndpoint);
+            var client = new Greeter.GreeterClient(channel);
 
+            var reply = await client.SayHelloAsync(input);
+
+            Console.WriteLine(reply.Message);
         }
 
     }
