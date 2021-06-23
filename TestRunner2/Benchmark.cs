@@ -39,24 +39,27 @@ namespace TestRunner2
 
         public class HttpCall
         {
-            public static async Task callHttpEndpointAsync()
+            public static BookListDTO HttpSetup()
             {
-                using (var client = new HttpClient())
-                {
-                    BookDTO book = new BookDTO { Title = "Hello", Author = "Jacob" };
-
-                    client.BaseAddress = new Uri(httpEndpoint);
-
-                    List<BookDTO> booksList = new List<BookDTO>
+                BookDTO book = new BookDTO { Title = "Hello", Author = "Jacob" };
+                List<BookDTO> booksList = new List<BookDTO>
                 {
                     book,
                     book,
                     book
                 };
+                BookListDTO books = new BookListDTO { books = booksList };
+                return books;
+            }
 
-                    BookListDTO books = new BookListDTO { books = booksList };
+            public static async Task callHttpEndpointAsync()
+            {
+                using (var client = new HttpClient())
+                {
 
-                    var bookListResponse = await client.PostAsJsonAsync("/v1/hello/bookslist", books);
+                    client.BaseAddress = new Uri(httpEndpoint);
+
+                    var bookListResponse = await client.PostAsJsonAsync("/v1/hello/bookslist", HttpSetup());
                     if (bookListResponse.IsSuccessStatusCode)
                     {
                         string returnValue = await bookListResponse.Content.ReadAsStringAsync();
@@ -71,17 +74,24 @@ namespace TestRunner2
 
         public class GrpcCall
         {
-            public static async Task callGrpcEndpointAsync()
+            public static BookDTORequest GrpcSetup()
             {
                 var input = new BookDTORequest();
                 input.BookDTO.Add(new BookDTO() { Author = "Jacob", Title = "Hello" });
                 input.BookDTO.Add(new BookDTO() { Author = "Jacob", Title = "Hello" });
+                input.BookDTO.Add(new BookDTO() { Author = "Jacob", Title = "Hello" });
+                return input;
+            }
+
+            public static async Task callGrpcEndpointAsync()
+            {
+
                 var channel = GrpcChannel.ForAddress(grpcEndpoint);
                 var client = new Greeter.GreeterClient(channel);
 
-                var reply = await client.BookCollectionAsync(input);
+                var reply = await client.BookCollectionAsync(GrpcSetup());
 
-                if (reply.Total != 2)
+                if (reply.Total != 3)
                 {
                     throw new ApplicationException();
                 }
